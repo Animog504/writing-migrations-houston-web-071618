@@ -1,3 +1,4 @@
+require 'pry'
 require 'bundler/setup'
 Bundler.require
 
@@ -8,6 +9,8 @@ ENV["SCHOOL_ENV"] ||= "development"
 
 DBRegistry[ENV["SCHOOL_ENV"]].connect!
 DB = ActiveRecord::Base.connection
+
+ActiveRecord::Base.logger = Logger.new(STDOUT) #added this to see SQL
 
 if ENV["SCHOOL_ENV"] == "test"
   ActiveRecord::Migration.verbose = false
